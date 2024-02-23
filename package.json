@@ -7,5 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "blank_l",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bLanK-NULL/v-ctxmenu.git"
+  },
+  "keywords": [
+    "vue",
+    "contextmenu"
+  ],
+  "bugs": {
+    "url": "https://github.com/bLanK-NULL/v-ctxmenu/issues"
+  },
+  "homepage": "https://github.com/bLanK-NULL/v-ctxmenu#readme"
 }
