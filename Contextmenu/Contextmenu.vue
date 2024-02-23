@@ -3,7 +3,7 @@
         <div class="contextmenu" v-if="props.isVisible.value">
             <div class="contextMask" @click="(e) => {
                 e.stopPropagation();
-                $updateVisible()
+                $closeCtxmenu()
             }"></div>
             <div class="box">
                 <ul>
