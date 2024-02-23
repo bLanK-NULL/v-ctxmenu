@@ -11,7 +11,7 @@ npm install v-ctxmenu
 //main.js
 import VCtxmenu from 'v-ctxmenu'
 ...
-app.directive('v-ctxmenu', VCtxmenu)
+app.directive('ctxmenu', VCtxmenu)
 ```
 
 > Partial registration is also supported
