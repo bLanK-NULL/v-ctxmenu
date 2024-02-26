@@ -24,8 +24,27 @@ app.directive('ctxmenu', VCtxmenu)
 </template>
 <script setup>
 const lists = [{
-	title: 'default',
-	fn: ()=>{console.log('I will be triggered when this item is selected')}
+  title: '1',
+  fn: null,
+  children: [{
+    title: '1-1',
+    fn: () => console.log('1-1 was clicked')
+  }]
+}, {
+  title: '2',
+  children: [{
+    title: '2-1',
+    fn: () => console.log('2-1 was clicked')
+  }, {
+    title: '2-2',
+    fn: () => console.log('2-2 was clicked')
+  }, {
+    title: '2-3',
+    children: [{
+      title: '2-3-1',
+      fn: () => console.log('2-3-1 was clicked')
+    }]
+  }]
 }]
 </script>
 ```
