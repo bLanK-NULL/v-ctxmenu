@@ -5,19 +5,14 @@
                 e.stopPropagation();
                 $closeCtxmenu()
             }"></div>
-            <div class="box">
-                <ul>
-                    <li v-for="(item, index) of props.list"
-                        @click="($event) => { item.fn && item.fn($event); $closeCtxmenu() }" :key="index">
-                        {{ item.title }}</li>
-                </ul>
-            </div>
+            <Box :pos="props.pos" :list="props.list"></Box>
         </div>
     </Teleport>
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref, onUnmounted, toRaw } from 'vue';
+import { ref } from 'vue';
+import Box from './Box.vue'
 const props = defineProps({
     pos: {
         type: Object,
@@ -43,18 +38,6 @@ const props = defineProps({
 </script>
 
 <style lang="css" scoped>
-/* 清除ul 和 li的默认样式 */
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-ul li {
-    margin: 0;
-    padding: 0;
-}
-
 .contextMask {
     position: fixed;
     left: 0;
@@ -63,32 +46,5 @@ ul li {
     height: 100%;
     z-index: 999999999999 !important;
     opacity: 0.3;
-}
-
-.box {
-    position: fixed;
-    left: v-bind("props.pos.left + 5 + 'px'");
-    top: v-bind("props.pos.top + 5 + 'px'");
-    z-index: 99999999999999 !important;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9fb;
-    padding: 5px 0;
-}
-
-.box li {
-    box-sizing: border-box;
-    min-width: 130px;
-    font-size: 14px;
-    padding: 8px 16px;
-    font-weight: 400;
-    /* 字体 微软lighter*/
-    font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
-}
-
-.box li:hover {
-    background-color: #c7c7cc;
-    cursor: pointer;
 }
 </style>
