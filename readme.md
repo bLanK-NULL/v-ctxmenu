@@ -9,7 +9,7 @@ npm install v-ctxmenu
 
 ```js
 //main.js
-import VCtxmenu from 'v-ctxmenu'
+import {VCtxmenu, $closeCtxmenu, $lastEvent} from 'v-ctxmenu'
 ...
 app.directive('ctxmenu', VCtxmenu)
 ```
@@ -23,6 +23,7 @@ app.directive('ctxmenu', VCtxmenu)
 	<div v-ctxmenu:[lists]> this is a line </div>
 </template>
 <script setup>
+import {$closeCtxmenu, $lastEvent} from 'v-ctxmenu'
 const lists = [{
   title: '1',
   fn: null,
@@ -49,4 +50,5 @@ const lists = [{
 </script>
 ```
 
-use `$closeCtxmenu()` in template to close context menu
+1. use `$closeCtxmenu()` in template to close context menu
+2. use `$lastEvent` get the last event  that is contextmenu event.

@@ -1,33 +1,38 @@
-import { reactive, ref, createApp } from 'vue';
+import { createApp } from 'vue';
 import Contextmenu from './Contextmenu/Contextmenu.vue';
 
+let $closeCtxmenu = null;
+let $lastEvent = null;
 const VCtxmenu = {
-    mounted: (el, binding, vnode) => {
-        const root = document.createElement('div');
-        const pos = reactive({
-            left: 0,
-            top: 0,
-        })
-        const isVisible = ref(false)
-        const app = createApp(Contextmenu, {
-            list: binding.arg,
-            pos,
-            isVisible
-        })
-        app.mount(root)
-        app.config.globalProperties.$closeCtxmenu = function (val = true) {
-            isVisible.value = !val;
-        }
-        el.addEventListener('contextmenu', function (e) {
+    mounted: (el, binding) => {
+        el.addEventListener('contextmenu', handleContextmenu)
+        function handleContextmenu(e) {
+            $lastEvent = e;
             e.stopPropagation();
             e.preventDefault();
+            let root = document.createElement('div')
+            const pos = {
+                left: e.x,
+                top: e.y,
+            }
+            const app = createApp(Contextmenu, {
+                list: binding.arg,
+                pos,
+            })
+            app.mount(root)
+            $closeCtxmenu = function () {
+                app.unmount()
+                el.removeChild(root)
+                root = null;
+            }
             el.appendChild(root)
-            isVisible.value = true;
-            pos.left = e.x;
-            pos.top = e.y;
-        })
+        }
     },
-
 }
 
-export default VCtxmenu;
+
+export {
+    VCtxmenu,
+    $closeCtxmenu,
+    $lastEvent,
+};

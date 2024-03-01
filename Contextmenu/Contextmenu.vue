@@ -1,18 +1,18 @@
 <template>
     <Teleport to="body">
-        <div class="contextmenu" v-if="props.isVisible.value">
-            <div class="contextMask" @click="(e) => {
-                e.stopPropagation();
-                $closeCtxmenu()
-            }"></div>
-            <Box :pos="props.pos" :list="props.list"></Box>
+        <div class="contextmenu">
+            <div class="contextMask" @click.prevent.stop="$closeCtxmenu()" @contextmenu.prevent.stop="$closeCtxmenu()">
+            </div>
+            <div @contextmenu.prevent>
+                <Box :pos="props.pos" :list="props.list"></Box>
+            </div>
         </div>
     </Teleport>
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import Box from './Box.vue'
+import { $closeCtxmenu } from '../index';
 const props = defineProps({
     pos: {
         type: Object,
@@ -28,13 +28,8 @@ const props = defineProps({
         default: () => {
             return []
         }
-    },
-    isVisible: {
-        type: Object,
-        default: ref(false)
     }
 })
-
 </script>
 
 <style lang="css" scoped>

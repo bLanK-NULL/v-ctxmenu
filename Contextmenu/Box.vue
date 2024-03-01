@@ -1,7 +1,7 @@
 <template>
     <div class="box" ref="box">
         <ul ref="boxUl">
-            <li v-for="(item, index) of props.list" @click="($event) => {
+            <li v-for="(item, index) of list" @click="($event) => {
                 if (!item.children) {
                     item.fn && item.fn($event)
                     $closeCtxmenu()
@@ -14,7 +14,8 @@
                         d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"
                         p-id="835"></path>
                 </svg>
-                <Box v-if="(curIdx === index) && item.children" :pos="sonPos" :list="item.children"></Box>
+                <Box v-if="(curIdx === index) && item.children" :pos="sonPos" :list="item.children"
+                    @mouseleave="curIdx = -1"></Box>
             </li>
         </ul>
     </div>
@@ -22,6 +23,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import { $closeCtxmenu } from '../index'
 const props = defineProps({
     pos: {
         type: Object,
@@ -42,7 +44,6 @@ const props = defineProps({
 const box = ref(null)
 const boxUl = ref(null)
 const curIdx = ref(-1)
-//怎么用计算属性给出子节点的pos, 子节点在父节点右边刚好和父节点右边重合
 const sonPos = computed(() => {
     return {
         left: props.pos.left + box.value.getBoundingClientRect().width,
@@ -64,14 +65,10 @@ ul li {
     padding: 0;
 }
 
-/* .box 是fixed定位，这是一个问题
-因为子 box无法相对于父亲box定位
-但是有方法绕过
-*/
 .box {
     position: fixed;
-    left: v-bind("props.pos.left + 5 + 'px'");
-    top: v-bind("props.pos.top + 5 + 'px'");
+    left: v-bind("props.pos.left + 1 + 'px'");
+    top: v-bind("props.pos.top + 1 + 'px'");
     z-index: 99999999999999 !important;
     border: 1px solid #ccc;
     border-radius: 5px;

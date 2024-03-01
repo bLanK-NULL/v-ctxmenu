@@ -1,6 +1,6 @@
 {
   "name": "v-ctxmenu",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "实现指令式添加右键菜单",
   "main": "index.js",
   "scripts": {
